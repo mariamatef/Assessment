@@ -1,0 +1,12 @@
+<table border="2">
+    <tr>
+        <td>Topic's Name</td>
+        <td>Articles Number</td>
+    </tr>
+    {% for topic in topicArticleDict %}
+    <tr>
+        <td>{{topic}}</td>
+        <td>{{topicArticleDict[topic]}}</td>
+    </tr>
+    {% endfor %}
+</table>
