@@ -93,4 +93,4 @@ def viewAllTopics():
         return render_template('all-topics.html', topicArticleDict=topicArticleDict)
         
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',debug=True)
+    app.run(host='0.0.0.0',port=5000,debug=True)
