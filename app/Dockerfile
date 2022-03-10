@@ -6,11 +6,7 @@ WORKDIR /app
 
 RUN python -m pip install --upgrade pip
 
-RUN apk add gcc musl-dev python3-dev libffi-dev openssl-dev
-
-RUN apt-get update
-
-RUN apt-get install -y libmysqlclient-dev python-dev
+RUN apk add gcc musl-dev python3-dev libffi-dev openssl-dev libmysqlclient-dev python-dev
 
 RUN pip install -r requirements.txt
 
