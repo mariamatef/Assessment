@@ -5,12 +5,14 @@ import yaml
 
 app = Flask(__name__)
 
+#For Local Testing
 # db = yaml.load(open('db.yaml'), Loader=yaml.FullLoader)
 # app.config['MYSQL_HOST'] = db['mysql_host']
 # app.config['MYSQL_USER'] = db['mysql_user']
 # app.config['MYSQL_PASSWORD'] = db['mysql_password']
 # app.config['MYSQL_DB'] = db['mysql_db']
 
+#For Container Testing
 app.config['MYSQL_HOST'] = 'db'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'root'
