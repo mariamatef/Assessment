@@ -19,6 +19,7 @@ app.config['MYSQL_PASSWORD'] = 'root'
 app.config['MYSQL_DB'] = 'dev2qa'
 
 mysql = MySQL(app)
+mysql.init_app(app)
 
 @app.route('/')
 def index():
@@ -32,7 +33,7 @@ def addTopic():
     if request.method == 'POST':
         newTopic = request.form
         topicName = newTopic['topicName']
-        cur = mysql.connection.cursor()
+        cur = mysql.get_db().cursor()
         topic_insert_query = """INSERT INTO topic (topicName) VALUES (%s) """
         cur.execute(topic_insert_query, [topicName])
         mysql.connection.commit()
@@ -55,7 +56,7 @@ def addTopic():
 def getAllArticlesForCertainTopic():
     if 'topic' in request.args:
         topicName = request.args['topic']
-        cur = mysql.connection.cursor()
+        cur = mysql.get_db().cursor()
         topic_select_query = """SELECT id FROM topic WHERE topicName LIKE %s"""
         topicIdResult = cur.execute(topic_select_query, [topicName])
         if topicIdResult == 1:
@@ -78,7 +79,7 @@ def getAllArticlesForCertainTopic():
 
 @app.route('/api/topics', methods=['GET'])
 def viewAllTopics():
-    cur = mysql.connection.cursor()
+    cur = mysql.get_db().cursor()
     topics_select_query = """SELECT * FROM topic """
     topicsResults= cur.execute(topics_select_query)
     if topicsResults > 0:
