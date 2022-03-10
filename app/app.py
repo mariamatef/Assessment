@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from flask_mysqldb import MySQL
+from flaskext.mysql import MySQL
 import random
 import yaml
 

@@ -2,3 +2,5 @@ Flask==1.1.2
 Flask-MySQL==1.5.1
 PyMySQL==0.10.0
 PyYAML
+itsdangerous==2.0.1
+mysql-connector
