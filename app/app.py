@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from flaskext.mysql import MySQL
+from flask_mysqldb import MySQL
 import random
 import yaml
 
@@ -12,14 +12,14 @@ app = Flask(__name__)
 # app.config['MYSQL_PASSWORD'] = db['mysql_password']
 # app.config['MYSQL_DB'] = db['mysql_db']
 
-#For Container Testing
+# For Container Testing
 app.config['MYSQL_HOST'] = 'db'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'root'
 app.config['MYSQL_DB'] = 'dev2qa'
 
 mysql = MySQL(app)
-mysql.init_app(app)
+# mysql.init_app(app)
 
 @app.route('/')
 def index():
@@ -33,7 +33,7 @@ def addTopic():
     if request.method == 'POST':
         newTopic = request.form
         topicName = newTopic['topicName']
-        cur = mysql.get_db().cursor()
+        cur = mysql.connection.cursor()
         topic_insert_query = """INSERT INTO topic (topicName) VALUES (%s) """
         cur.execute(topic_insert_query, [topicName])
         mysql.connection.commit()
@@ -56,7 +56,7 @@ def addTopic():
 def getAllArticlesForCertainTopic():
     if 'topic' in request.args:
         topicName = request.args['topic']
-        cur = mysql.get_db().cursor()
+        cur = mysql.connection.cursor()
         topic_select_query = """SELECT id FROM topic WHERE topicName LIKE %s"""
         topicIdResult = cur.execute(topic_select_query, [topicName])
         if topicIdResult == 1:
@@ -79,7 +79,7 @@ def getAllArticlesForCertainTopic():
 
 @app.route('/api/topics', methods=['GET'])
 def viewAllTopics():
-    cur = mysql.get_db().cursor()
+    cur = mysql.connection.cursor()
     topics_select_query = """SELECT * FROM topic """
     topicsResults= cur.execute(topics_select_query)
     if topicsResults > 0:
