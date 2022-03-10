@@ -1,20 +1,20 @@
-from crypt import methods
-from typing import Dict
 from flask import Flask, render_template, request
 from flask_mysqldb import MySQL
-import logging
 import random
-
-
 import yaml
 
 app = Flask(__name__)
 
-db = yaml.load(open('db.yaml'), Loader=yaml.FullLoader)
-app.config['MYSQL_HOST'] = db['mysql_host']
-app.config['MYSQL_USER'] = db['mysql_user']
-app.config['MYSQL_PASSWORD'] = db['mysql_password']
-app.config['MYSQL_DB'] = db['mysql_db']
+# db = yaml.load(open('db.yaml'), Loader=yaml.FullLoader)
+# app.config['MYSQL_HOST'] = db['mysql_host']
+# app.config['MYSQL_USER'] = db['mysql_user']
+# app.config['MYSQL_PASSWORD'] = db['mysql_password']
+# app.config['MYSQL_DB'] = db['mysql_db']
+
+app.config['MYSQL_HOST'] = 'db'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'root'
+app.config['MYSQL_DB'] = 'dev2qa'
 
 mysql = MySQL(app)
 
@@ -91,4 +91,4 @@ def viewAllTopics():
         return render_template('all-topics.html', topicArticleDict=topicArticleDict)
         
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0',debug=True)
