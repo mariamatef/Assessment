@@ -6,7 +6,7 @@ WORKDIR /app
 
 RUN python -m pip install --upgrade pip
 
-RUN apk add gcc musl-dev python3-dev libffi-dev openssl-dev
+RUN apk add gcc musl-dev python3-dev libffi-dev openssl-dev mariadb-connector-c-dev
 
 RUN pip install mysqlclient  
 
